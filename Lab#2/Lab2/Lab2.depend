@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1522027618 source:c:\users\vladdd\desktop\lab2\main.cpp
+	<tchar.h>
+	<windows.h>
+	"resource.h"
+
+1522024641 c:\users\vladdd\desktop\lab2\resource.h
+
+1522024322 source:c:\users\vladdd\desktop\lab2\resource.rc
+	"resource.h"
+	<windows.h>
+	<afxres.h>
+

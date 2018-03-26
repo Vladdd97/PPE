@@ -1,0 +1,52 @@
+#include "resource.h"
+#include <windows.h>
+//winres.h or afxres.h
+
+#include <afxres.h>
+
+
+
+IDR_MYMENU MENU
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "About", ID_FILE_ABOUT
+        MENUITEM "Exit", ID_FILE_EXIT
+    END
+
+    POPUP "Colors"
+    BEGIN
+        MENUITEM "Blue", ID_COLORS_BLUE
+        MENUITEM "Red", ID_COLORS_RED
+        MENUITEM "Yellow", ID_COLORS_YELLOW
+    END
+
+    POPUP "Features"
+    BEGIN
+        MENUITEM "Maximize",  0, GRAYED
+        MENUITEM "Minimize",  0, GRAYED
+        MENUITEM "Close", 0 , GRAYED
+        MENUITEM "Jump Around", ID_FEATURES_JUMPAROUND
+    END
+END
+
+IDI_MYICON ICON "person.ico"
+
+
+//-------------
+
+ID_DIALOGBOX_BLACKCOLOR DIALOG 0, 0, 239, 66
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "DialogBox"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "&OK",IDOK,174,18,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,174,35,50,14
+    GROUPBOX        "Think About...",IDC_STATIC,7,7,225,52
+    CTEXT           "Do you really wanna exit ?",
+                    IDC_STATIC,16,18,144,33
+END
+
+
+
+
