@@ -38,6 +38,8 @@ namespace PPE_Lab3
 
         private LinearGradientBrush gradientBrush;
 
+        private Point initialPoint;
+        private int direction;
 
 
 
@@ -69,7 +71,8 @@ namespace PPE_Lab3
             redrawPencil.StartCap = redrawPencil.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
 
-
+            initialPoint = new Point();
+            direction = 1;
             gradientBrush = new LinearGradientBrush(
                 new Point(0, 10),
                 new Point(200, 10),
@@ -134,6 +137,9 @@ namespace PPE_Lab3
             {
                 startPoint.X = endPoint.X = e.X;
                 startPoint.Y = endPoint.Y = e.Y;
+                initialPoint.X = e.X;
+                initialPoint.Y = e.Y;
+                direction = 1;
             }
         }
 
@@ -173,8 +179,15 @@ namespace PPE_Lab3
 
             g.DrawBezier(redrawPencil,p1,p2,p3,p4);
 
-            endPoint.X = e.X;
-            endPoint.Y = e.Y;
+            if (e.X >= initialPoint.X)
+                endPoint.X = e.X;
+            else
+                startPoint.X = e.X;
+
+            if (e.Y >= initialPoint.Y)
+                endPoint.Y = e.Y;
+            else
+                startPoint.Y = e.Y;
 
             centerPoint = new Point(Canvas.Width / 2, Canvas.Height / 2);
 
@@ -197,25 +210,28 @@ namespace PPE_Lab3
             {
                 int offset = 0;
                 if (startPoint.X < endPoint.X)
-                {
                     offset = 2;
-                }
                 else
-                {
                     offset = -2;
-                }
+
+
 
                 Point[] points =
                 {
-                    new Point(startPoint.X-offset, startPoint.Y+Math.Abs(offset/2) ),
-                    new Point(endPoint.X+offset, startPoint.Y+Math.Abs(offset/2)),
-                    new Point((endPoint.X + startPoint.X) / 2 , startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2)-Math.Abs(offset/2))
+                    new Point(startPoint.X-offset, startPoint.Y+Math.Abs(offset/2)*direction ),
+                    new Point(endPoint.X+offset, startPoint.Y+Math.Abs(offset/2)*direction),
+                    new Point((endPoint.X + startPoint.X) / 2 , startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2 + Math.Abs(offset/2))*direction)
 
                 };
 
 
                 g.FillPolygon(refillBrush, points);
 
+                if (initialPoint.Y >= e.Y)
+                    direction = 1;
+                else
+                    direction = -1;
+
                 endPoint.X = e.X;
                 endPoint.Y = e.Y;
 
@@ -223,23 +239,29 @@ namespace PPE_Lab3
                 {
                     new Point(startPoint.X, startPoint.Y),
                     new Point(endPoint.X, startPoint.Y),
-                    new Point((endPoint.X + startPoint.X) / 2, startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2))
+                    new Point((endPoint.X + startPoint.X) / 2, startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2)*direction)
                 };
 
                 g.FillPolygon(brush, points2);
             }
             else
             {
+
+
                 Point[] points =
                 {
                     new Point(startPoint.X, startPoint.Y),
                     new Point(endPoint.X, startPoint.Y),
-                    new Point((endPoint.X + startPoint.X) / 2, startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2))
+                    new Point((endPoint.X + startPoint.X) / 2, startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2*direction ))
 
                 };
 
-
                 g.DrawPolygon(redrawPencil, points);
+
+                if (initialPoint.Y >= e.Y)
+                    direction = 1;
+                else
+                    direction = -1;
 
                 endPoint.X = e.X;
                 endPoint.Y = e.Y;
@@ -248,23 +270,33 @@ namespace PPE_Lab3
                 {
                     new Point(startPoint.X, startPoint.Y),
                     new Point(endPoint.X, startPoint.Y),
-                    new Point((endPoint.X + startPoint.X) / 2, startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2))
+                    new Point((endPoint.X + startPoint.X) / 2, startPoint.Y - (Math.Abs(endPoint.X - startPoint.X) / 2*direction))
                 };
 
                 g.DrawPolygon(pencil, points2);
+
             }
         }
     
 
         private void DrawRectangle(MouseEventArgs e)
         {
+
             if (drawFilledObjects)
             {
                 g.FillRectangle(refillBrush, startPoint.X-pencilOffset/2, startPoint.Y-pencilOffset/2,
                     Math.Abs(endPoint.X - startPoint.X)+pencilOffset, Math.Abs(endPoint.Y - startPoint.Y)+pencilOffset);
 
-                endPoint.X = e.X;
-                endPoint.Y = e.Y;
+
+                if (e.X >= initialPoint.X)
+                    endPoint.X = e.X;
+                else
+                    startPoint.X = e.X;
+
+                if (e.Y >= initialPoint.Y)
+                    endPoint.Y = e.Y;
+                else
+                    startPoint.Y = e.Y;
 
                 g.FillRectangle(brush, startPoint.X, startPoint.Y,
                     Math.Abs(endPoint.X - startPoint.X), Math.Abs(endPoint.Y - startPoint.Y));
@@ -275,8 +307,16 @@ namespace PPE_Lab3
                 g.DrawRectangle(redrawPencil, startPoint.X, startPoint.Y,
                     Math.Abs(endPoint.X - startPoint.X), Math.Abs(endPoint.Y - startPoint.Y));
 
-                endPoint.X = e.X;
-                endPoint.Y = e.Y;
+
+                if (e.X >= initialPoint.X)
+                    endPoint.X = e.X;
+                else
+                    startPoint.X = e.X;
+
+                if (e.Y >= initialPoint.Y)
+                    endPoint.Y = e.Y;
+                else
+                    startPoint.Y = e.Y;
 
                 g.DrawRectangle(pencil, startPoint.X, startPoint.Y,
                     Math.Abs(endPoint.X - startPoint.X), Math.Abs(endPoint.Y - startPoint.Y));
@@ -306,15 +346,21 @@ namespace PPE_Lab3
 
         private void DrawEllipse(MouseEventArgs e)
         {
-
             if (drawFilledObjects)
             {
+                float redrawOffset = 2.4f;
+                g.FillEllipse(refillBrush, startPoint.X-redrawOffset/2 , startPoint.Y-redrawOffset/2 ,
+                    Math.Abs(endPoint.X - startPoint.X) + redrawOffset, Math.Abs(endPoint.Y - startPoint.Y)+redrawOffset);
 
-                g.FillEllipse(refillBrush, startPoint.X-pencilOffset/2, startPoint.Y-pencilOffset/2,
-                    Math.Abs(endPoint.X - startPoint.X) + pencilOffset, Math.Abs(endPoint.Y - startPoint.Y)+pencilOffset);
+                if (e.X >= initialPoint.X)
+                    endPoint.X = e.X;
+                else
+                    startPoint.X = e.X;
 
-                endPoint.X = e.X;
-                endPoint.Y = e.Y;
+                if (e.Y >= initialPoint.Y)
+                    endPoint.Y = e.Y;
+                else
+                    startPoint.Y = e.Y;
 
                 g.FillEllipse(brush, startPoint.X, startPoint.Y,
                     Math.Abs(endPoint.X - startPoint.X), Math.Abs(endPoint.Y - startPoint.Y));
@@ -326,8 +372,15 @@ namespace PPE_Lab3
                 g.DrawEllipse(redrawPencil, startPoint.X, startPoint.Y,
                     Math.Abs(endPoint.X - startPoint.X), Math.Abs(endPoint.Y - startPoint.Y));
 
-                endPoint.X = e.X;
-                endPoint.Y = e.Y;
+                if (e.X >= initialPoint.X)
+                    endPoint.X = e.X;
+                else
+                    startPoint.X = e.X;
+
+                if (e.Y >= initialPoint.Y)
+                    endPoint.Y = e.Y;
+                else
+                    startPoint.Y = e.Y;
 
                 g.DrawEllipse(pencil, startPoint.X, startPoint.Y,
                     Math.Abs(endPoint.X - startPoint.X), Math.Abs(endPoint.Y - startPoint.Y));
