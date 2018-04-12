@@ -1,0 +1,10 @@
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\bin\Debug\PPE[ Lab-4 ].exe.config
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\bin\Debug\PPE[ Lab-4 ].exe
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\bin\Debug\PPE[ Lab-4 ].pdb
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\obj\Debug\PPE[ Lab-4 ].csprojResolveAssemblyReference.cache
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\obj\Debug\PPE__Lab_4__.Form1.resources
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\obj\Debug\PPE__Lab_4__.Properties.Resources.resources
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\obj\Debug\PPE[ Lab-4 ].csproj.GenerateResource.Cache
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\obj\Debug\PPE[ Lab-4 ].csproj.CoreCompileInputs.cache
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\obj\Debug\PPE[ Lab-4 ].exe
+C:\Users\Vladdd\Desktop\PPE[ Lab-4 ]\PPE[ Lab-4 ]\obj\Debug\PPE[ Lab-4 ].pdb
